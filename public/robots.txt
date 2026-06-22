@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Keep internal admin/auth routes out of search results.
+Disallow: /#/admin
+Disallow: /#/dashboard
+Disallow: /#/signin
+Disallow: /#/signup
+
+Sitemap: https://career-signal-africa.vercel.app/sitemap.xml

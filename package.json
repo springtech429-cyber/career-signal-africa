@@ -1,0 +1,23 @@
+{
+  "name": "career-signal-africa",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "seed": "node scripts/seed-supabase.mjs",
+    "generate:seed-sql": "node scripts/generate-seed-sql.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.2",
+    "@vitejs/plugin-react": "latest",
+    "dotenv": "^17.4.2",
+    "lucide-react": "latest",
+    "papaparse": "^5.5.4",
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest"
+  }
+}

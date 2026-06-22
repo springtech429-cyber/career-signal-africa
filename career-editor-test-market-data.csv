@@ -1,0 +1,4 @@
+career_id,region,marketability_score,profitability_score,demand_score,median_salary_local,median_salary_usd,source_ids,last_updated
+gis_specialist,Zambia,81,72,92,14800,550,zda|zamstats|reliefweb|jobweb,2026-06-22
+gis_specialist,Africa,86,78,93,22500,835,afdb|reliefweb|fuzu|devex,2026-06-22
+gis_specialist,Global,84,86,91,82000,3050,onet|bls|wef|kaggle,2026-06-22

@@ -1,0 +1,10 @@
+{
+  "name": "CareerSignal Africa",
+  "short_name": "CareerSignal",
+  "description": "Zambia-first data-informed career recommendations.",
+  "start_url": "/#/",
+  "display": "standalone",
+  "background_color": "#f6f8fb",
+  "theme_color": "#0b4b78",
+  "icons": [{ "src": "/favicon.svg", "sizes": "64x64", "type": "image/svg+xml" }]
+}
