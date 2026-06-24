@@ -10,12 +10,16 @@ function normalizeSupabaseUrl(value = '') {
 
 const rawUrl = import.meta.env.VITE_SUPABASE_URL
 const url = normalizeSupabaseUrl(rawUrl)
-const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim()
+const rawAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const anonKey = rawAnonKey?.replace(/\s+/g, '')
 
 export const isSupabaseConfigured = Boolean(url && anonKey && !url.includes('your-project-ref') && !anonKey.includes('your-anon-public-key'))
 
 if (rawUrl && rawUrl !== url) {
-  console.warn(`CareerSignal normalized VITE_SUPABASE_URL from "${rawUrl}" to "${url}". In .env.local, use only the base Supabase URL.`)
+  console.warn(`CareerSignal normalized VITE_SUPABASE_URL from "${rawUrl}" to "${url}". In .env.local/Vercel, use only the base Supabase URL.`)
+}
+if (rawAnonKey && rawAnonKey !== anonKey) {
+  console.warn('CareerSignal removed whitespace from VITE_SUPABASE_ANON_KEY. In Vercel, paste the anon key as one single line.')
 }
 
 export const supabase = isSupabaseConfigured
