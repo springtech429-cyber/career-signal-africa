@@ -53,3 +53,96 @@ button.menu.menu:hover{
 }
 /* Final mobile nav anti-glass override */
 .solid-menu{background:#0b4b78!important;background-color:#0b4b78!important;color:#fff!important;border:2px solid #0e6ea8!important;opacity:1!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 10px 22px rgba(11,75,120,.35)!important}.solid-menu:hover,.solid-menu:focus{background:#0e6ea8!important;background-color:#0e6ea8!important;color:#fff!important}.nav-links,.links.open{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}@media(max-width:900px){.site-header,.top{background:#ffffff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.links.open{background:#ffffff!important;border:1px solid #dbe4ef!important;box-shadow:0 18px 45px rgba(16,32,51,.18)!important}.solid-menu{display:grid!important;place-items:center!important;width:48px!important;height:48px!important;min-width:48px!important;border-radius:14px!important;font-size:25px!important}}:root[data-theme="dark"] .top{background:#07111f!important}:root[data-theme="dark"] .links.open{background:#0d1b2d!important;border-color:#20344e!important}:root[data-theme="dark"] .solid-menu{background:#0e6ea8!important;background-color:#0e6ea8!important;border-color:#7dd3fc!important;color:#fff!important}
+/* Mobile dropdown menu: solid panel background behind all links */
+@media(max-width:900px){
+  .top .nav .links.open,
+  .nav .links.open,
+  .links.open{
+    display:flex !important;
+    position:absolute !important;
+    top:72px !important;
+    left:14px !important;
+    right:14px !important;
+    z-index:999 !important;
+    padding:14px !important;
+    gap:10px !important;
+    background:#ffffff !important;
+    background-color:#ffffff !important;
+    border:1px solid #b8d8eb !important;
+    border-radius:22px !important;
+    box-shadow:0 24px 60px rgba(8,26,45,.22) !important;
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+    overflow:hidden !important;
+  }
+  .top .nav .links.open::before,
+  .nav .links.open::before,
+  .links.open::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,#ffffff 0%,#eef8ff 100%) !important;
+    z-index:-1;
+  }
+  .top .nav .links.open a:not(.btn),
+  .top .nav .links.open button:not(.btn):not(.theme-toggle),
+  .nav .links.open a:not(.btn),
+  .nav .links.open button:not(.btn):not(.theme-toggle){
+    width:100% !important;
+    min-height:44px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:11px 14px !important;
+    border-radius:14px !important;
+    background:#f4f9fd !important;
+    background-color:#f4f9fd !important;
+    border:1px solid #d6e8f5 !important;
+    color:#0b4b78 !important;
+    font-weight:900 !important;
+    text-align:center !important;
+    opacity:1 !important;
+  }
+  .top .nav .links.open a:not(.btn):hover,
+  .top .nav .links.open button:not(.btn):not(.theme-toggle):hover,
+  .nav .links.open a:not(.btn):hover,
+  .nav .links.open button:not(.btn):not(.theme-toggle):hover{
+    background:#e5f4ff !important;
+    color:#063a5f !important;
+  }
+  .top .nav .links.open .btn,
+  .nav .links.open .btn{
+    width:100% !important;
+    border-radius:16px !important;
+  }
+  .top .nav .links.open .theme-toggle,
+  .nav .links.open .theme-toggle{
+    width:100% !important;
+    height:44px !important;
+    border-radius:14px !important;
+    background:#102033 !important;
+    color:#fff !important;
+    border:1px solid #102033 !important;
+  }
+  :root[data-theme="dark"] .top .nav .links.open,
+  :root[data-theme="dark"] .nav .links.open,
+  :root[data-theme="dark"] .links.open{
+    background:#07111f !important;
+    background-color:#07111f !important;
+    border-color:#294867 !important;
+    box-shadow:0 26px 70px rgba(0,0,0,.42) !important;
+  }
+  :root[data-theme="dark"] .top .nav .links.open::before,
+  :root[data-theme="dark"] .nav .links.open::before,
+  :root[data-theme="dark"] .links.open::before{
+    background:linear-gradient(180deg,#0d1b2d 0%,#07111f 100%) !important;
+  }
+  :root[data-theme="dark"] .top .nav .links.open a:not(.btn),
+  :root[data-theme="dark"] .top .nav .links.open button:not(.btn):not(.theme-toggle),
+  :root[data-theme="dark"] .nav .links.open a:not(.btn),
+  :root[data-theme="dark"] .nav .links.open button:not(.btn):not(.theme-toggle){
+    background:#10243a !important;
+    border-color:#294867 !important;
+    color:#dbeafe !important;
+  }
+}
