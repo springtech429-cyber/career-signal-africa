@@ -166,13 +166,27 @@ function App() {
   return <>
     <header className="top"><nav className="shell nav">
       <a className="brand" href="#/"><span>CS</span><b>CareerSignal<small>Africa</small></b></a>
-      <button className="menu solid-menu" style={{ backgroundColor: '#0b4b78', color: '#fff', border: '2px solid #0e6ea8', opacity: 1 }} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" aria-expanded={menuOpen}>☰</button>
-      <div className={`links ${menuOpen ? 'open' : ''}`}>
-        <div className="drawer-title"><span>CS</span><div><b>CareerSignal</b><small>Africa</small></div><button type="button" onClick={() => setMenuOpen(false)} aria-label="Close menu">×</button></div>
+      <button className="menu solid-menu" style={{ backgroundColor: '#0b4b78', color: '#fff', border: '2px solid #0e6ea8', opacity: 1 }} onClick={() => setMenuOpen(true)} aria-label="Open menu" aria-expanded={menuOpen}>☰</button>
+      <div className="links desktop-links">
         <a href="#/methodology">Methodology</a><a href="#/sources">Sources</a><a href="#/sitemap">Site map</a>{user && <a href="#/dashboard">Dashboard</a>}{accountProfile?.role === 'admin' && <a href="#/admin">Admin</a>}<button className="theme-toggle" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label="Toggle light and dark theme">{theme === 'dark' ? '☀️' : '🌙'}</button>{user ? <button className="btn secondary small" onClick={handleSignOut}>Sign out</button> : <button className="btn secondary small" onClick={() => openAuth('signin')}>Sign in</button>}<a className="btn primary small" href="#/assessment">Find your career</a>
       </div>
     </nav></header>
-    {menuOpen && <button className="drawer-backdrop" aria-label="Close menu" onClick={() => setMenuOpen(false)} />}
+    {menuOpen && <>
+      <button className="mobile-drawer-backdrop" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
+      <aside className="mobile-drawer" aria-label="Mobile navigation">
+        <div className="mobile-drawer-hero"><span>CS</span><div><b>CareerSignal</b><small>Africa</small></div><button type="button" onClick={() => setMenuOpen(false)} aria-label="Close menu">×</button></div>
+        <nav className="mobile-drawer-links">
+          <a onClick={() => setMenuOpen(false)} href="#/methodology">Methodology</a>
+          <a onClick={() => setMenuOpen(false)} href="#/sources">Sources</a>
+          <a onClick={() => setMenuOpen(false)} href="#/sitemap">Site map</a>
+          {user && <a onClick={() => setMenuOpen(false)} href="#/dashboard">Dashboard</a>}
+          {accountProfile?.role === 'admin' && <a onClick={() => setMenuOpen(false)} href="#/admin">Admin</a>}
+          <button type="button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? '☀️ Light mode' : '🌙 Dark mode'}</button>
+          {user ? <button type="button" onClick={() => { setMenuOpen(false); handleSignOut() }}>Sign out</button> : <button type="button" onClick={() => { setMenuOpen(false); openAuth('signin') }}>Sign in</button>}
+          <a className="drawer-cta" onClick={() => setMenuOpen(false)} href="#/assessment">Find your career</a>
+        </nav>
+      </aside>
+    </>}
     <main>{page}</main>
     <footer><div className="shell foot footer-nav"><div><b>CareerSignal Africa</b><p>Directional career intelligence for Zambia, Africa and global opportunity context.</p><p className="micro-note"><b>Disclaimer:</b> recommendations are informational estimates, not professional career, financial, legal, or education advice.</p></div><div><h3>Explore</h3><a href="#/">Home</a><a href="#/assessment">Find your career</a><a href="#/results">Recommendations</a><a href="#/compare">Compare careers</a></div><div><h3>Trust & data</h3><a href="#/methodology">Methodology</a><a href="#/sources">Data sources</a><a href="#/sitemap">Full site map</a><p className="micro-note"><b>Data integrity:</b> source refreshes use official reports, partnerships, permitted APIs/RSS, or manual curation.</p></div><div><h3>Account</h3>{user ? <><a href="#/dashboard">Dashboard</a>{accountProfile?.role === 'admin' && <a href="#/admin">Admin dashboard</a>}<button className="footer-button" onClick={handleSignOut}>Sign out</button></> : <><button className="footer-button" onClick={() => openAuth('signin')}>Sign in</button><button className="footer-button" onClick={() => openAuth('signup')}>Create account</button></>}</div></div></footer>
     {!consent && <CookieConsent onDecide={next => { setConsent(next); setConsentState(next); trackEvent('cookie_consent_updated', next, user) }} />}
