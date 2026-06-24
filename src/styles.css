@@ -146,3 +146,56 @@ button.menu.menu:hover{
     color:#dbeafe !important;
   }
 }
+/* True mobile drawer menu, replacing transparent dropdown */
+.drawer-title{display:none}.drawer-backdrop{display:none}
+@media(max-width:900px){
+  .drawer-backdrop{display:block;position:fixed;inset:0;z-index:998;background:rgba(8,26,45,.48);border:0;padding:0;margin:0;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .top .nav .links.open,
+  .nav .links.open,
+  .links.open{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:auto!important;
+    bottom:0!important;
+    width:min(86vw,360px)!important;
+    height:100vh!important;
+    z-index:1000!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    justify-content:flex-start!important;
+    gap:8px!important;
+    padding:0 18px 22px!important;
+    background:#ffffff!important;
+    background-color:#ffffff!important;
+    border:0!important;
+    border-radius:0 28px 28px 0!important;
+    box-shadow:28px 0 70px rgba(8,26,45,.28)!important;
+    overflow-y:auto!important;
+    transform:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+  .links.open::before{display:none!important;content:none!important}
+  .drawer-title{display:grid;grid-template-columns:46px 1fr 42px;gap:12px;align-items:center;margin:0 -18px 12px;padding:22px 18px 20px;background:linear-gradient(135deg,#0b4b78,#0e6ea8);color:#fff;min-height:118px}
+  .drawer-title span{width:46px;height:46px;border-radius:15px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-weight:950;border:1px solid rgba(255,255,255,.25)}
+  .drawer-title b{display:block;font-size:18px;line-height:1}.drawer-title small{display:block;text-transform:uppercase;letter-spacing:.1em;font-weight:900;opacity:.82;margin-top:3px}.drawer-title button{width:42px;height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.16);color:#fff;font-size:28px;line-height:1;cursor:pointer}
+  .top .nav .links.open a:not(.btn),
+  .top .nav .links.open button:not(.btn):not(.theme-toggle),
+  .nav .links.open a:not(.btn),
+  .nav .links.open button:not(.btn):not(.theme-toggle){
+    width:100%!important;min-height:50px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;padding:0 16px!important;border-radius:16px!important;background:#ffffff!important;border:1px solid transparent!important;color:#102033!important;font-weight:900!important;text-align:left!important;box-shadow:none!important;
+  }
+  .top .nav .links.open a:not(.btn)::before,
+  .nav .links.open a:not(.btn)::before{content:"";width:10px;height:10px;border-radius:999px;background:#0e6ea8;margin-right:13px;box-shadow:0 0 0 5px #e7f3fb}
+  .top .nav .links.open a:not(.btn):hover,
+  .top .nav .links.open button:not(.btn):not(.theme-toggle):hover{background:#eef8ff!important;color:#0b4b78!important;transform:translateX(3px)}
+  .top .nav .links.open .btn,.nav .links.open .btn{width:100%!important;min-height:52px!important;border-radius:18px!important;margin-top:4px!important}
+  .top .nav .links.open .theme-toggle,.nav .links.open .theme-toggle{width:100%!important;height:50px!important;border-radius:16px!important;background:#f4f9fd!important;color:#0b4b78!important;border:1px solid #d6e8f5!important;margin:4px 0!important;box-shadow:none!important}
+  :root[data-theme="dark"] .top .nav .links.open,:root[data-theme="dark"] .nav .links.open,:root[data-theme="dark"] .links.open{background:#0d1b2d!important;background-color:#0d1b2d!important;box-shadow:28px 0 76px rgba(0,0,0,.55)!important}
+  :root[data-theme="dark"] .drawer-title{background:linear-gradient(135deg,#0b4b78,#06263f)}
+  :root[data-theme="dark"] .top .nav .links.open a:not(.btn),:root[data-theme="dark"] .top .nav .links.open button:not(.btn):not(.theme-toggle){background:#0d1b2d!important;color:#e8f1fb!important;border-color:transparent!important}
+  :root[data-theme="dark"] .top .nav .links.open a:not(.btn):hover,:root[data-theme="dark"] .top .nav .links.open button:not(.btn):not(.theme-toggle):hover{background:#122a44!important;color:#7dd3fc!important}
+  :root[data-theme="dark"] .top .nav .links.open .theme-toggle{background:#10243a!important;color:#fff!important;border-color:#294867!important}
+}
