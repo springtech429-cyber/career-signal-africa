@@ -166,7 +166,7 @@ function App() {
   return <>
     <header className="top"><nav className="shell nav">
       <a className="brand" href="#/"><span>CS</span><b>CareerSignal<small>Africa</small></b></a>
-      <button className="menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">☰</button>
+      <button className="menu solid-menu" style={{ backgroundColor: '#0b4b78', color: '#fff', border: '2px solid #0e6ea8', opacity: 1 }} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">☰</button>
       <div className={`links ${menuOpen ? 'open' : ''}`}>
         <a href="#/methodology">Methodology</a><a href="#/sources">Sources</a><a href="#/sitemap">Site map</a>{user && <a href="#/dashboard">Dashboard</a>}{accountProfile?.role === 'admin' && <a href="#/admin">Admin</a>}<button className="theme-toggle" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label="Toggle light and dark theme">{theme === 'dark' ? '☀️' : '🌙'}</button>{user ? <button className="btn secondary small" onClick={handleSignOut}>Sign out</button> : <button className="btn secondary small" onClick={() => openAuth('signin')}>Sign in</button>}<a className="btn primary small" href="#/assessment">Find your career</a>
       </div>
