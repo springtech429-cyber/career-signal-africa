@@ -17,3 +17,37 @@
 /* Mobile hamburger visibility fix */
 .menu{background:linear-gradient(135deg,var(--blue),var(--blue2))!important;color:#fff!important;border:1px solid rgba(255,255,255,.22)!important;box-shadow:0 10px 24px rgba(11,75,120,.28);font-weight:950;line-height:1}.menu:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(11,75,120,.34)}:root[data-theme="dark"] .menu{background:linear-gradient(135deg,#2563eb,#06b6d4)!important;color:#fff!important;border-color:rgba(125,211,252,.35)!important;box-shadow:0 0 0 1px rgba(125,211,252,.16),0 14px 34px rgba(6,182,212,.2)}
 @media(max-width:900px){.menu{display:grid!important;place-items:center;width:44px;height:44px;font-size:22px}.nav .menu{flex:0 0 44px}}
+/* Strong override: solid visible hamburger button on mobile */
+.top .nav button.menu,
+button.menu.menu{
+  background:#0b4b78 !important;
+  background-color:#0b4b78 !important;
+  color:#ffffff !important;
+  border:2px solid #0e6ea8 !important;
+  box-shadow:0 10px 24px rgba(11,75,120,.35) !important;
+  opacity:1 !important;
+}
+.top .nav button.menu:hover,
+button.menu.menu:hover{
+  background:#0e6ea8 !important;
+  background-color:#0e6ea8 !important;
+}
+:root[data-theme="dark"] .top .nav button.menu,
+:root[data-theme="dark"] button.menu.menu{
+  background:#0e6ea8 !important;
+  background-color:#0e6ea8 !important;
+  border-color:#7dd3fc !important;
+  color:#fff !important;
+}
+@media(max-width:900px){
+  .top .nav button.menu,
+  button.menu.menu{
+    display:grid !important;
+    place-items:center !important;
+    width:46px !important;
+    height:46px !important;
+    min-width:46px !important;
+    border-radius:14px !important;
+    font-size:24px !important;
+  }
+}
