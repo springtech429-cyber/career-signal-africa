@@ -6,6 +6,8 @@ import { getConsent, setConsent, incrementVisitCount, trackEvent } from './analy
 import Papa from 'papaparse'
 import './styles.css'
 
+const isAdminRole = (role) => role === 'admin' || role === 'super_admin'
+
 const REGIONS = ['Zambia', 'Africa', 'Global']
 const defaultProfile = {
   education: 'diploma',
@@ -168,7 +170,7 @@ function App() {
       <a className="brand" href="#/"><span>CS</span><b>CareerSignal<small>Africa</small></b></a>
       <button className="menu solid-menu" style={{ backgroundColor: '#0b4b78', color: '#fff', border: '2px solid #0e6ea8', opacity: 1 }} onClick={() => setMenuOpen(true)} aria-label="Open menu" aria-expanded={menuOpen}>☰</button>
       <div className="links desktop-links">
-        <a href="#/methodology">Methodology</a><a href="#/sources">Sources</a><a href="#/sitemap">Site map</a>{user && <a href="#/dashboard">Dashboard</a>}{accountProfile?.role === 'admin' && <a href="#/admin">Admin</a>}<button className="theme-toggle" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label="Toggle light and dark theme">{theme === 'dark' ? '☀️' : '🌙'}</button>{user ? <button className="btn secondary small" onClick={handleSignOut}>Sign out</button> : <button className="btn secondary small" onClick={() => openAuth('signin')}>Sign in</button>}<a className="btn primary small" href="#/assessment">Find your career</a>
+        <a href="#/methodology">Methodology</a><a href="#/sources">Sources</a><a href="#/sitemap">Site map</a>{user && <a href="#/dashboard">Dashboard</a>}{isAdminRole(accountProfile?.role) && <a href="#/admin">Admin</a>}<button className="theme-toggle" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label="Toggle light and dark theme">{theme === 'dark' ? '☀️' : '🌙'}</button>{user ? <button className="btn secondary small" onClick={handleSignOut}>Sign out</button> : <button className="btn secondary small" onClick={() => openAuth('signin')}>Sign in</button>}<a className="btn primary small" href="#/assessment">Find your career</a>
       </div>
     </nav></header>
     {menuOpen && <>
@@ -180,7 +182,7 @@ function App() {
           <a onClick={() => setMenuOpen(false)} href="#/sources">Sources</a>
           <a onClick={() => setMenuOpen(false)} href="#/sitemap">Site map</a>
           {user && <a onClick={() => setMenuOpen(false)} href="#/dashboard">Dashboard</a>}
-          {accountProfile?.role === 'admin' && <a onClick={() => setMenuOpen(false)} href="#/admin">Admin</a>}
+          {isAdminRole(accountProfile?.role) && <a onClick={() => setMenuOpen(false)} href="#/admin">Admin</a>}
           <button type="button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? '☀️ Light mode' : '🌙 Dark mode'}</button>
           {user ? <button type="button" onClick={() => { setMenuOpen(false); handleSignOut() }}>Sign out</button> : <button type="button" onClick={() => { setMenuOpen(false); openAuth('signin') }}>Sign in</button>}
           <a className="drawer-cta" onClick={() => setMenuOpen(false)} href="#/assessment">Find your career</a>
@@ -188,7 +190,7 @@ function App() {
       </aside>
     </>}
     <main>{page}</main>
-    <footer><div className="shell foot footer-nav"><div><b>CareerSignal Africa</b><p>Directional career intelligence for Zambia, Africa and global opportunity context.</p><p className="micro-note"><b>Disclaimer:</b> recommendations are informational estimates, not professional career, financial, legal, or education advice.</p></div><div><h3>Explore</h3><a href="#/">Home</a><a href="#/assessment">Find your career</a><a href="#/results">Recommendations</a><a href="#/compare">Compare careers</a></div><div><h3>Trust & data</h3><a href="#/methodology">Methodology</a><a href="#/sources">Data sources</a><a href="#/sitemap">Full site map</a><p className="micro-note"><b>Data integrity:</b> source refreshes use official reports, partnerships, permitted APIs/RSS, or manual curation.</p></div><div><h3>Account</h3>{user ? <><a href="#/dashboard">Dashboard</a>{accountProfile?.role === 'admin' && <a href="#/admin">Admin dashboard</a>}<button className="footer-button" onClick={handleSignOut}>Sign out</button></> : <><button className="footer-button" onClick={() => openAuth('signin')}>Sign in</button><button className="footer-button" onClick={() => openAuth('signup')}>Create account</button></>}</div></div></footer>
+    <footer><div className="shell foot footer-nav"><div><b>CareerSignal Africa</b><p>Directional career intelligence for Zambia, Africa and global opportunity context.</p><p className="micro-note"><b>Disclaimer:</b> recommendations are informational estimates, not professional career, financial, legal, or education advice.</p></div><div><h3>Explore</h3><a href="#/">Home</a><a href="#/assessment">Find your career</a><a href="#/results">Recommendations</a><a href="#/compare">Compare careers</a></div><div><h3>Trust & data</h3><a href="#/methodology">Methodology</a><a href="#/sources">Data sources</a><a href="#/sitemap">Full site map</a><p className="micro-note"><b>Data integrity:</b> source refreshes use official reports, partnerships, permitted APIs/RSS, or manual curation.</p></div><div><h3>Account</h3>{user ? <><a href="#/dashboard">Dashboard</a>{isAdminRole(accountProfile?.role) && <a href="#/admin">Admin dashboard</a>}<button className="footer-button" onClick={handleSignOut}>Sign out</button></> : <><button className="footer-button" onClick={() => openAuth('signin')}>Sign in</button><button className="footer-button" onClick={() => openAuth('signup')}>Create account</button></>}</div></div></footer>
     {!consent && <CookieConsent onDecide={next => { setConsent(next); setConsentState(next); trackEvent('cookie_consent_updated', next, user) }} />}
     {authOpen && <AuthModal initialMode={authMode} onClose={() => setAuthOpen(false)} notify={notify} />}
     {visitCount >= 2 && !user && !authOpen && !['/methodology','/sources'].some(x => route.startsWith(x)) && <AccountGate onSignIn={() => openAuth('signup')} />}
@@ -485,7 +487,7 @@ function SiteMap({ user, accountProfile }) {
     ['Start here', [['Home', '#/'], ['Find your career', '#/assessment'], ['Recommendations', '#/results'], ['Compare shortlist', '#/compare']]],
     ['Trust & data', [['Methodology', '#/methodology'], ['Data sources', '#/sources'], ['Career data transparency', '#/methodology']]],
     ['Account', user ? [['Dashboard', '#/dashboard'], ['Update assessment', '#/assessment']] : [['Create account / sign in', '#/signin'], ['First recommendation', '#/assessment']]],
-    ['Admin', accountProfile?.role === 'admin' ? [['Admin dashboard', '#/admin'], ['Analytics', '#/admin'], ['Data management', '#/admin']] : [['Admin access', '#/signin']]],
+    ['Admin', isAdminRole(accountProfile?.role) ? [['Admin dashboard', '#/admin'], ['Analytics', '#/admin'], ['Data management', '#/admin']] : [['Admin access', '#/signin']]],
   ]
   return <section className="section"><div className="shell"><div className="title"><span className="eyebrow">Site map</span><h1>Navigate CareerSignal Africa</h1><p className="lead">A quick command centre for the assessment flow, transparent data, account tools and admin workspace.</p></div><div className="sitemap-grid">{groups.map(([title, links]) => <article className="card sitemap-card" key={title}><h2>{title}</h2>{links.map(([label, href]) => <a className="sitemap-link" href={href} key={label}><span>{label}</span><b>→</b></a>)}</article>)}</div></div></section>
 }
@@ -496,7 +498,7 @@ function Sources() { return <section className="section"><div className="shell">
 function UserDashboard({ profile, shortlist, user, accountProfile, openAuth }) {
   const careers = shortlist.map(id => DB.careers.find(c => c.id === id)).filter(Boolean)
   if (!user) return <section className="section"><div className="shell"><div className="card"><span className="eyebrow">User dashboard</span><h1>Create a free account</h1><p className="muted">Sign in to save recommendations, manage your profile and return to your career shortlist.</p><button className="btn primary" onClick={() => openAuth('signup')}>Create account / sign in</button></div></div></section>
-  return <section className="section"><div className="shell"><div className="title"><span className="eyebrow">Account dashboard</span><h1>Welcome{accountProfile?.full_name ? `, ${accountProfile.full_name}` : ''}</h1><p className="lead">Manage your saved careers, profile context and future recommendations.</p></div>{!accountProfile && <div className="notice warn" style={{ marginBottom: 18 }}>Your account profile is still loading or blocked by database policies. Run <span className="kbd">admin-auth-fix.sql</span> in Supabase if this does not resolve.</div>}<div className="grid g3"><Stat value={careers.length} label="Shortlisted careers" /><Stat value={profile.region} label="Default region" /><Stat value={accountProfile?.role || 'loading'} label="Account role" /><Stat value="Free" label="Current plan" /></div>{accountProfile?.role === 'admin' && <div className="notice success" style={{ marginTop: 18 }}><b>Admin verified.</b> Your profile role is admin. <a className="source-link" href="#/admin">Open the admin dashboard →</a></div>}<div className="grid g2" style={{ marginTop: 18 }}><div className="card"><h2>Your profile context</h2><p><b>Education:</b> {profile.education}</p><p><b>Location:</b> {profile.location}</p><p><b>Risk tolerance:</b> {profile.risk}</p><p><b>Skills:</b> {profile.skills.join(', ') || 'None selected yet'}</p><a className="btn secondary" href="#/assessment">Update assessment</a></div><div className="card"><h2>Saved careers</h2>{careers.length ? careers.map(c => <div className="gap" key={c.id}><span>{c.title}</span><a className="link-btn" href={`#/career/${c.id}`}>View</a></div>) : <p className="muted">No saved careers yet. Shortlist careers from your results.</p>}<a className="btn primary" href="#/results">View recommendations</a></div></div></div></section>
+  return <section className="section"><div className="shell"><div className="title"><span className="eyebrow">Account dashboard</span><h1>Welcome{accountProfile?.full_name ? `, ${accountProfile.full_name}` : ''}</h1><p className="lead">Manage your saved careers, profile context and future recommendations.</p></div>{!accountProfile && <div className="notice warn" style={{ marginBottom: 18 }}>Your account profile is still loading or blocked by database policies. Run <span className="kbd">admin-auth-fix.sql</span> in Supabase if this does not resolve.</div>}<div className="grid g3"><Stat value={careers.length} label="Shortlisted careers" /><Stat value={profile.region} label="Default region" /><Stat value={accountProfile?.role || 'loading'} label="Account role" /><Stat value="Free" label="Current plan" /></div>{isAdminRole(accountProfile?.role) && <div className="notice success" style={{ marginTop: 18 }}><b>Admin verified.</b> Your profile role is admin. <a className="source-link" href="#/admin">Open the admin dashboard →</a></div>}<div className="grid g2" style={{ marginTop: 18 }}><div className="card"><h2>Your profile context</h2><p><b>Education:</b> {profile.education}</p><p><b>Location:</b> {profile.location}</p><p><b>Risk tolerance:</b> {profile.risk}</p><p><b>Skills:</b> {profile.skills.join(', ') || 'None selected yet'}</p><a className="btn secondary" href="#/assessment">Update assessment</a></div><div className="card"><h2>Saved careers</h2>{careers.length ? careers.map(c => <div className="gap" key={c.id}><span>{c.title}</span><a className="link-btn" href={`#/career/${c.id}`}>View</a></div>) : <p className="muted">No saved careers yet. Shortlist careers from your results.</p>}<a className="btn primary" href="#/results">View recommendations</a></div></div></div></section>
 }
 
 function Admin({ notify, user, accountProfile }) {
@@ -510,7 +512,7 @@ function Admin({ notify, user, accountProfile }) {
   const sourceItem = DB.sources.find(s => s.id === selectedSource) || DB.sources[0]
 
   useEffect(() => {
-    if (accountProfile?.role !== 'admin') return
+    if (!isAdminRole(accountProfile?.role)) return
     async function loadAnalytics() {
       if (isSupabaseConfigured) {
         const [events, users, newsletter, rows] = await Promise.all([
@@ -529,7 +531,7 @@ function Admin({ notify, user, accountProfile }) {
   }, [accountProfile?.role, user, version])
 
   if (!user) return <Empty title="Sign in required" text="Admin tools are only available after verified admin authentication." />
-  if (accountProfile?.role !== 'admin') return <Empty title="Admin access required" text="This route is hidden and locked unless your authenticated profile role is admin." />
+  if (!isAdminRole(accountProfile?.role)) return <Empty title="Admin access required" text="This route is hidden and locked unless your authenticated profile role is admin." />
 
   const editCareer = (key, value) => {
     career[key] = ['skills','interests','work_preferences','entry_paths','resources'].includes(key) ? value.split(',').map(x => x.trim()).filter(Boolean) : value
